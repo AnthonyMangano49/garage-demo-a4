@@ -9,80 +9,85 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'cars',
   styles: [`
-    .selected{
-      background-color: white !important;
-      color: #2b9cff;
-      border-right: 5px solid #2b9cff;
+    .cars-list-item{
+      display: flex;
+      flex-direction: row;
+      background: white;
+      margin: 5px;
     }
-    .cars{
-      margin 0 0 2em 0;
-      list-style-type: none;
-      padding: 0;
-      width: 15em;
+    .car-image{
+      display: flex;
+      align-items: center;
+      flex: 1;
+      background: #8d9bff;
     }
-    .cars li{
+    .car-image img{
+      max-width: 100%;
+      min-height: 50px;
       cursor: pointer;
-      position: relative;
-      left: 0;
-      background-color: #EEE;
-      margin: .5em;
-      padding: .3em 0;
-      height: 1.6em;
-      border-radius: 4px;
     }
-    .cars li.selected:hover {
-    background-color: #BBD8DC !important;
-    color: white;
+    .car-col{
+      display: flex;
+      flex-direction: column;
+      flex: 3;
+      border-left: 1px solid #8d9bff;
     }
-    .cars li:hover {
-      color: #607D8B;
-      background-color: #DDD;
-      left: .1em;
+    .car-vin, .car-model, .car-available{
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .cars .text {
-      position: relative;
-      top: -3px;
-    }
-    .cars .tag {
-      display: inline-block;
-      font-size: small;
+    .car-vin{
+      flex: 1;
+      background: black;
       color: white;
-      padding: 0.8em 0.7em 0 0.7em;
-      background-color: #607D8B;
-      line-height: 1em;
-      position: relative;
-      left: -1px;
-      top: -4px;
-      height: 1.8em;
-      margin-right: .8em;
-      width: 5em;
-      border-radius: 4px 0 0 4px;
+    }
+    .car-model {
+      flex: 3;
+      font-size: 3em;
+    }
+    .car-available {
+      flex: 1;
+      font-size: 2em;
+      text-transform: uppercase; 
     }
   `],
   template: `
-  <ul class="cars">
-    <li *ngFor="let car of cars" (click)="onSelect(car)" [class.selected]="selectedCar === car">
-      <span class="tag">{{car.make}}</span> {{car.model}}
-    </li>
-  </ul>
-  <hr/>
-  <car-detail [selectedCar]= "selectedCar" ></car-detail>
+  <div *ngFor="let car of cars" class="cars-list-item">
+    <div class="car-image" [routerLink] = "['/car/', car.vin]" >
+      <div>
+        <img src="http://afgarage.com/wp-content/uploads/2015/03/logo3_trans.png">
+      </div>
+    </div>
+    <div class="car-col">
+      <div class="car-vin">
+        {{car.vin}}
+      </div>
+      <div class="car-model">
+        {{car.model}}
+      </div>
+    </div>
+    <div class="car-col">
+      <div class="car-available">
+        {{car.isAvailable ? 'Available' : 'Unavailable'}}
+      </div>
+    </div>
+  </div>
   `,
 })
 export class CarsComponent implements OnInit{
   constructor(
     private carsService: CarsService,
     private route: ActivatedRoute,
-    private location: Location ) { }
+    private location: Location 
+  ) { }
   
   ngOnInit() {
     this.route.paramMap
       .switchMap((params: ParamMap) => this.carsService.getCars(params.get('status')))
       .subscribe(response => this.cars = response);
   }
-  selectedCar: Car;
   cars: Car[];
-  onSelect(car:Car){ this.selectedCar = car};
 }
 
 

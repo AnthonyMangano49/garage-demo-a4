@@ -16,6 +16,9 @@ import { CarsComponent } from "./cars.component";
         {
           path: 'cars/:status',
           component: CarsComponent
+        },{
+          path: 'car/:id',
+          component: CarDetailComponent
         }
       ])
     ],

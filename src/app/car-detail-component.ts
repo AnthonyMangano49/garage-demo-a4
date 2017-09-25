@@ -1,5 +1,10 @@
-import { Component, Input} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
 import { Car } from "./car";
+import { CarsService } from "./cars.service";
+
+import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'car-detail',
@@ -10,13 +15,20 @@ import { Car } from "./car";
         <div id="detail-model">Model: {{selectedCar.model}}</div>
         <div id="detail-vin">VIN: {{selectedCar.vin}}</div>
         <select id="detail-is-available" [(ngModel)]="selectedCar.isAvailable">
-        <option value="true">VEHICLE AVAIABLE</option>
-        <option value="false">VEHICLE NOT AVAIABLE</option>
+            <option *ngFor="let option of [true, false]" [ngValue]="option">{{option}}</option>
         </select>
     </div>
     `,
 })
 
-export class CarDetailComponent{
-    @Input() selectedCar: Car;
+export class CarDetailComponent implements OnInit{
+    constructor(private carsService: CarsService, private route: ActivatedRoute, private location: Location) { };
+
+    ngOnInit(): void {
+        this.route.paramMap
+            .switchMap((p: ParamMap) => this.carsService.getCarByVin(p.get('id')))
+            .subscribe(r=> this.selectedCar = r);
+    }
+
+    selectedCar: Car;
 }
