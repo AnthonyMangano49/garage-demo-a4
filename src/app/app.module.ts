@@ -1,9 +1,10 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent }  from './app.component';
+import { HomeComponent }  from './home.component';
 import { CarDetailComponent } from "./car-detail-component";
 import { CarsService } from "./cars.service";
 import { CarsComponent } from "./cars.component";
@@ -12,17 +13,9 @@ import { CarsComponent } from "./cars.component";
   imports:  [ 
     BrowserModule, 
     FormsModule,
-    RouterModule.forRoot([
-        {
-          path: 'cars/:status',
-          component: CarsComponent
-        },{
-          path: 'car/:id',
-          component: CarDetailComponent
-        }
-      ])
+    AppRoutingModule
     ],
-  declarations: [ AppComponent, CarsComponent, CarDetailComponent],
+  declarations: [ AppComponent, CarsComponent, CarDetailComponent, HomeComponent],
   bootstrap:    [ AppComponent ],
   providers: [CarsService]
 })

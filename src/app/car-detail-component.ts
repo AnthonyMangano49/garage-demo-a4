@@ -86,8 +86,8 @@ import 'rxjs/add/operator/switchMap';
             </select>
         </div>
         <div class="detail-buttons">
-            <button id="Cancel">Cancel</button>
-            <button id="Submit">Submit</button>
+            <button id="Cancel" (click)="return()">Cancel</button>
+            <button id="Submit" (click)="submit()">Submit</button>
         </div>
     </div>
     `,
@@ -101,11 +101,15 @@ export class CarDetailComponent implements OnInit{
             .switchMap((p: ParamMap) => this.carsService.getCarByVin(p.get('id')))
             .subscribe(r=> this.selectedCar = r);
     }
-    //add dropdown for editing make (list all emums)
-    //vin validation
-    //any model is ok
-    selectedCar: Car;
+    selectedCar: Car;    
     makes(){
         return Object.keys(Makes);
     };
+    submit(){
+        //todo
+        this.return();
+    }
+    return(){
+        this.location.back();
+    }
 }

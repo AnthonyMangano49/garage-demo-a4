@@ -11,6 +11,9 @@ import { Component } from '@angular/core';
             background: #8d9bff;
             color: #eff1ff;
         }
+        #title-container span{
+            cursor: pointer;
+        }
         #router-container {
             display: flex;
             flex-direction: row;
@@ -38,12 +41,12 @@ import { Component } from '@angular/core';
     `],
     template: `
         <div id="title-container">
-            <span>{{title}}</span>
+            <span routerLink="/home">{{title}}</span>
         </div>
         <div id="router-container">
             <a routerLink="/cars/all">All Cars</a>
-            <a routerLink="/cars/available">Available Cars</a>
-            <a routerLink="/cars/unavailable">Unavailable Cars</a>
+            <a routerLink="/cars/available">Available</a>
+            <a routerLink="/cars/unavailable">Unavailable</a>
         </div>
         <router-outlet></router-outlet>
     `
