@@ -1,10 +1,15 @@
 import {Injectable} from '@angular/core';
+import {Headers,Http} from '@angular/http';
 import { Car } from "./car";
 import {CARS} from "./mock-cars";
+
+import 'rxjs/add/operator/toPromise'
 
 //injectable because other services may be injected in the future (not reqd now)
 @Injectable()
 export class CarsService{
+  constructor(private http: Http){}
+  private url = 'api/cars';
   //look into overloading this properly to get type support
   getCars(status: any): Promise<Car[]>{
     switch(status){
@@ -16,26 +21,44 @@ export class CarsService{
   }
 
   getAllCars(): Promise<Car[]>{
-    return Promise.resolve(CARS);
+    return this.http.get(this.url)
+      .toPromise()
+      .then(response => response.json().data as Car[])
+      .catch(this.errorResponse);
   }
 
-  //hip
   getAvailableCars(): Promise<Car[]>{
-    let cars = CARS.filter(car => car.isAvailable === true);
-    return Promise.resolve(cars);
+    return this.http.get(this.url)
+    .toPromise()
+    .then(response => {
+      let all = response.json().data as Car[];
+      return all.filter(c => c.isAvailable);
+    })
+    .catch(this.errorResponse);
   }
 
-  //old school
   getUnavailableCars(): Promise<Car[]>{
-    var cars: Car[] = [];
-    CARS.forEach(car => {
-      if(!car.isAvailable) cars.push(car);
-    });
-    return Promise.resolve(cars);
+    return this.http.get(this.url)
+    .toPromise()
+    .then(response => {
+      let all = response.json().data as Car[];
+      return all.filter(c => !c.isAvailable);
+    })
+    .catch(this.errorResponse);
   }
 
   getCarByVin(vin: string): Promise<Car>{
-    let car = CARS.filter(car => car.vin === vin)[0];
-    return Promise.resolve(car);
+    return this.http.get(this.url)
+    .toPromise()
+    .then(response => {
+      let all = response.json().data as Car[];
+      return all.find(c => c.vin === vin);
+    })
+    .catch(this.errorResponse);
+  }
+
+  errorResponse(error: any): Promise<any>{
+    console.error(error);
+    return Promise.reject(error.message || error)
   }
 }
