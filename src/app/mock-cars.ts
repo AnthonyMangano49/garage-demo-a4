@@ -26,5 +26,30 @@ export const CARS: Array<Car> = [
     make: 'Toyota',
     model: 'Prius',
     isAvailable: true
+  },  {
+    vin: '123www',
+    make: 'Lincoln',
+    model: 'MKZ',
+    isAvailable: true
+  },{
+    vin: 'xyz820',
+    make: 'Chevy',
+    model: 'Cobalt',
+    isAvailable: false
+  },{
+    vin: 'F0091',
+    make: 'Honda',
+    model: 'Pilot',
+    isAvailable: true
+  },{
+    vin: '1912c',
+    make: 'BMW',
+    model: 'M3',
+    isAvailable: true
+  },{
+    vin: 'T9I89',
+    make: 'Audi',
+    model: 'R8',
+    isAvailable: true
   }
 ];
