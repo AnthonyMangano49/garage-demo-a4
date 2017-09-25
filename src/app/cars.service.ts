@@ -29,14 +29,12 @@ export class CarsService{
   getUnavailableCars(): Promise<Car[]>{
     var cars: Car[] = [];
     CARS.forEach(car => {
-      console.log(car);
       if(!car.isAvailable) cars.push(car);
     });
     return Promise.resolve(cars);
   }
 
   getCarByVin(vin: string): Promise<Car>{
-    console.log(vin);
     let car = CARS.filter(car => car.vin === vin)[0];
     return Promise.resolve(car);
   }

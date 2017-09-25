@@ -13,11 +13,18 @@ import 'rxjs/add/operator/switchMap';
       display: flex;
       flex-direction: row;
       background: white;
-      margin: 5px;
+      max-height: 75px;
+      width: 98%;
+      max-width: 920px;
+      margin: 7px auto;
+    }
+    .cars-list-item *{
+      max-height: 75px
     }
     .car-image{
       display: flex;
       align-items: center;
+      justify-content: center;
       flex: 1;
       background: #8d9bff;
     }
@@ -29,47 +36,94 @@ import 'rxjs/add/operator/switchMap';
     .car-col{
       display: flex;
       flex-direction: column;
-      flex: 3;
-      border-left: 1px solid #8d9bff;
+      flex: 5;
     }
-    .car-vin, .car-model, .car-available{
+    .car-isAvailable{
+      display: flex;
+      flex: 4;
+      flex-direction: column;
+      color: white;
+    }
+    .car-available{
+      background: #00b100;
+    }
+    .car-unavailable{
+      background: #e01d3f;
+    }
+    .car-vin, .car-model{
       display: flex;
       align-items: center;
       justify-content: center;
+      text-align: center;
     }
     .car-vin{
       flex: 1;
-      background: black;
+      background: grey;
       color: white;
     }
-    .car-model {
-      flex: 3;
-      font-size: 3em;
+    .car-edit{
+      padding-right: 5px;
+      text-align: right;
+      color: blue;
     }
-    .car-available {
+    .car-edit span{
+      cursor: pointer;
+    }
+    .car-model {
+      flex: 2;
+      font-size: 1.5em;
+    }
+    .car-available, .car-unavailable{
+      display: flex;
       flex: 1;
-      font-size: 2em;
-      text-transform: uppercase; 
+      align-items: center;
+      justify-content: center;
+    }
+    .active{
+       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5)
+    }
+    .inactive{
+      cursor: pointer;
+      opacity: 0.5;
+    }
+    @media(min-width: 600px){
+      .car-model {
+        font-size: 2em;
+      }
+      .car-isAvailable{
+        flex-direction: row;
+      }
+    }
+    @media(max-width: 600px){
+      .inactive{
+        background: grey;
+      }
     }
   `],
   template: `
   <div *ngFor="let car of cars" class="cars-list-item">
     <div class="car-image" [routerLink] = "['/car/', car.vin]" >
       <div>
-        <img src="http://afgarage.com/wp-content/uploads/2015/03/logo3_trans.png">
+        <img [src]="'../images/' + car.make + '.png'">
       </div>
     </div>
     <div class="car-col">
       <div class="car-vin">
         {{car.vin}}
       </div>
+      <div class="car-edit">
+        <span [routerLink] = "['/car/', car.vin]">Edit</span>
+      </div>
       <div class="car-model">
-        {{car.model}}
+        {{car.make}} {{car.model}}
       </div>
     </div>
-    <div class="car-col">
-      <div class="car-available">
-        {{car.isAvailable ? 'Available' : 'Unavailable'}}
+    <div class="car-isAvailable">
+      <div class="car-available" [ngClass]="styleCheck(true, car.isAvailable)" (click)="toggleAvailable(true, car)">
+        Available
+      </div>
+      <div class="car-unavailable" [ngClass]="styleCheck(false, car.isAvailable)" (click)="toggleAvailable(false, car)">
+        Unavailable
       </div>
     </div>
   </div>
@@ -88,6 +142,16 @@ export class CarsComponent implements OnInit{
       .subscribe(response => this.cars = response);
   }
   cars: Car[];
+
+  styleCheck(available: boolean, isAvailable: boolean): string{
+    return(available === isAvailable ? 'active' : 'inactive');
+  }
+
+  toggleAvailable(available: boolean, car:Car): void{
+    //todo update in service
+    //if new status doesnt match current status, toggle them
+    if(available !== car.isAvailable) car.isAvailable = !car.isAvailable;
+  }
 }
 
 

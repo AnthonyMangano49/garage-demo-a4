@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'my-app',
     styles: [`
         #title-container {
-            font-size: 3em;
+            font-size: 1.5em;
             text-align: center;
             text-transform: uppercase;
             padding: 25px;
@@ -30,6 +30,11 @@ import { Component } from '@angular/core';
             background: grey;
             color: white;
         }
+        @media(min-width: 600px){
+            #title-container{
+                font-size: 3em;
+            }
+        }
     `],
     template: `
         <div id="title-container">
@@ -38,7 +43,7 @@ import { Component } from '@angular/core';
         <div id="router-container">
             <a routerLink="/cars/all">All Cars</a>
             <a routerLink="/cars/available">Available Cars</a>
-            <a routerLink="/cars/unavailable">Missing Cars</a>
+            <a routerLink="/cars/unavailable">Unavailable Cars</a>
         </div>
         <router-outlet></router-outlet>
     `
