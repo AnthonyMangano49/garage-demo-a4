@@ -1,0 +1,39 @@
+#title-container {
+    font-size: 1.5em;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 25px;
+    background: #8d9bff;
+    color: #eff1ff;
+}
+#title-container span{
+    cursor: pointer;
+}
+#router-container {
+    display: flex;
+    flex-direction: row;
+}
+#router-container a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    background: white;
+    color: #8d9bff;
+    text-transform: uppercase;
+    height: 3em;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+}
+#router-container a:hover {
+    border-bottom: 3px solid #8d9bff;
+}
+.active-route{
+    background: grey !important;
+    color: white! important;
+}
+@media(min-width: 600px){
+    #title-container{
+        font-size: 3em;
+    }
+}

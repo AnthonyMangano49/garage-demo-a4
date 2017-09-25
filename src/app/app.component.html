@@ -1,0 +1,9 @@
+<div id="title-container">
+    <span routerLink="/home">{{title}}</span>
+</div>
+<div id="router-container">
+    <a routerLink="/cars/all" routerLinkActive="active-route">All Cars</a>
+    <a routerLink="/cars/available" routerLinkActive="active-route">Available</a>
+    <a routerLink="/cars/unavailable" routerLinkActive="active-route">Unavailable</a>
+</div>
+<router-outlet></router-outlet>

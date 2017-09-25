@@ -1,0 +1,29 @@
+<div class="detail-background" *ngIf="selectedCar">
+    <div id="detail-make">
+        <label>
+            Make         
+        </label>
+        <select [(ngModel)]="selectedCar.make">
+            <option *ngFor="let make of makes()">{{make}}</option>
+        </select>
+    </div>
+    <div id="detail-model">
+        <label>
+            Model         
+        </label>
+        <input [(ngModel)]="selectedCar.model">
+    </div>
+    <div id="detail-vin">
+        <label>VIN</label> 
+        <input [(ngModel)]="selectedCar.vin" maxlength="17">
+    </div>
+    <div class="detail-is-available">          
+        <select id="detail-is-available" [(ngModel)]="selectedCar.isAvailable">
+            <option *ngFor="let option of [true, false]" [ngValue]="option">{{option ? 'Vehicle Available': 'Vehicle Unavailable'}}</option>
+        </select>
+    </div>
+    <div class="detail-buttons">
+        <button id="Cancel" (click)="return()">Cancel</button>
+        <button id="Submit" (click)="submit()">Submit</button>
+    </div>
+</div>

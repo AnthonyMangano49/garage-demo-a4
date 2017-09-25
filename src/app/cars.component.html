@@ -1,0 +1,26 @@
+<div *ngFor="let car of cars" class="cars-list-item">
+    <div class="car-image" [routerLink] = "['/car/', car.vin]" >
+        <div>
+        <img [src]="'../images/' + car.make + '.png'">
+        </div>
+    </div>
+    <div class="car-col">
+        <div class="car-vin">
+        {{car.vin}}
+        </div>
+        <div class="car-edit">
+        <span [routerLink] = "['/car/', car.vin]">Edit</span>
+        </div>
+        <div class="car-model">
+        {{car.make}} {{car.model}}
+        </div>
+    </div>
+    <div class="car-isAvailable">
+        <div class="car-available" [ngClass]="styleCheck(true, car.isAvailable)" (click)="toggleAvailable(true, car)">
+        Available
+        </div>
+        <div class="car-unavailable" [ngClass]="styleCheck(false, car.isAvailable)" (click)="toggleAvailable(false, car)">
+        Unavailable
+        </div>
+    </div>
+</div>
