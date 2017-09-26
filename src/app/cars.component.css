@@ -38,7 +38,6 @@
 .car-image img{
     max-width: 100%;
     min-height: 50px;
-    cursor: pointer;
 }
 .car-col{
     display: flex;

@@ -4,3 +4,18 @@ body{
   background: #eff1ff;
   color: grey;
 }
+
+body::-webkit-scrollbar {
+  width: .5em;
+}
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+body::-webkit-scrollbar-thumb {
+background-color: rgba(128, 128, 128, 0.66);
+outline: 1px solid white;
+}
+
+button:focus, span:focus, input:focus, select:focus, img:focus{
+  outline: 0;
+}

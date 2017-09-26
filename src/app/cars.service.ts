@@ -23,7 +23,6 @@ export class CarsService{
     return this.http.get(this.url)
       .toPromise()
       .then(response => {
-        console.log(response.json().data);
         return response.json().data as Car[]}
       )
       .catch(this.errorResponse);
@@ -43,8 +42,8 @@ export class CarsService{
     .catch(this.errorResponse);
   }
 
-  getCarByVin(vin: string): Promise<Car>{
-    return this.http.get(`${this.url}?vin=${vin}`)
+  getCarById(id: number): Promise<Car>{
+    return this.http.get(`${this.url}?id=${id}`)
     .toPromise()
     .then(response => response.json().data[0] as Car)
     .catch(this.errorResponse);
@@ -55,6 +54,35 @@ export class CarsService{
       .toPromise()
       .then(() => car)
       .catch(this.errorResponse)
+  }
+
+  createCar(car: Car): Promise<Car>{
+    //angular in mem web api is requiring id???
+    return this.fetchLastId().then(
+      id => {
+        car.id = id;
+        return this.http.post(this.url, JSON.stringify(car))
+          .toPromise()
+          .then(() => car)
+          .catch(this.errorResponse);
+      }
+    );
+    // return this.http.post(this.url, JSON.stringify(car))
+    //   .toPromise()
+    //   .then(() => car)
+    //   .catch(this.errorResponse);
+  }
+
+  deleteCar(car: Car): Promise<Car>{
+    return this.http.delete(`${this.url}/${car.id}`)
+      .toPromise()
+      .then(() => car)
+      .catch(this.errorResponse);
+  }
+
+  fetchLastId(): Promise<number>{ 
+    return this.getAllCars()
+      .then((cars) => Math.max.apply(null, cars.map(c => c.id)));
   }
 
   errorResponse(error: any): Promise<any>{

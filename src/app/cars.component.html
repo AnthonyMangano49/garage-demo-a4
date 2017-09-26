@@ -6,7 +6,7 @@
     </div>
 </div>
 <div *ngFor="let car of cars" class="cars-list-item">
-    <div class="car-image" [routerLink] = "['/car/', car.vin]" >
+    <div class="car-image" >
         <div>
         <img [src]="'../images/' + car.make + '.png'">
         </div>
@@ -16,7 +16,7 @@
         {{car.vin}}
         </div>
         <div class="car-edit">
-        <span [routerLink] = "['/car/', car.vin]" class="fa fa-pencil-square-o"></span>
+        <span [routerLink] = "['/car/', car.id]" class="fa fa-pencil-square-o"></span>
         </div>
         <div class="car-model">
         {{car.make}} {{car.model}}

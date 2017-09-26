@@ -1,8 +1,16 @@
+#detail-title {
+    font-size: 1.2em;
+    display: block;
+    text-align: center;
+    text-transform: uppercase;
+    color: grey;
+    margin-bottom: 15px;
+}
 .detail-background{
     display: flex;
     flex-direction: column;
     margin: 25px auto;
-    padding: 40px 20px;
+    padding: 20px 20px;
     width: 50%;
     min-width: 320px;
     max-width: 500px;
@@ -15,7 +23,6 @@
     flex: 1;
 }
 .detail-background > * label{
-    flex: 1;
     background: #8d9bff;
     padding: 10px 7px;
     min-width: 75px;
@@ -49,7 +56,6 @@
 }
 #detail-delete label{
     background: #ef8e9f;
-    border: 2px solid #ef8e9f; 
 }
 #detail-delete input{
     border: 2px solid #ef8e9f;
@@ -62,6 +68,7 @@
     align-items: center;
     background: #ef8e9f; 
     border: 2px solid #ef8e9f;
+    cursor: pointer;
 }
 #detail-delete button:hover{
     background:  #e01d3f;
