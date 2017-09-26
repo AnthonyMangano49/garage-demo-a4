@@ -1,4 +1,5 @@
-<div class="detail-background" *ngIf="selectedCar">
+<!-- todo div class="detail-background" *ngIf="selectedCar"-->
+<div class="detail-background">
     <div id="detail-make">
         <label>
             Make         
@@ -21,6 +22,11 @@
         <select id="detail-is-available" [(ngModel)]="selectedCar.isAvailable">
             <option *ngFor="let option of [true, false]" [ngValue]="option">{{option ? 'Vehicle Available': 'Vehicle Unavailable'}}</option>
         </select>
+    </div>
+    <div id="detail-delete">
+        <label>Delete Car</label> 
+        <input placeholder="Enter VIN to Confirm" maxlength="17">
+        <button><span class="fa fa-times"></span></button>
     </div>
     <div class="detail-buttons">
         <button id="Cancel" (click)="return()">Cancel</button>

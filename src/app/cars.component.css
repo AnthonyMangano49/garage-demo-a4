@@ -2,91 +2,109 @@
 .cars-list-item{
     display: flex;
     flex-direction: row;
-    background: white;
     max-height: 75px;
     width: 98%;
     max-width: 920px;
     margin: 7px auto;
-    }
-    .cars-list-item *{
+}
+.cars-list-item *{
     max-height: 75px
-    }
-    .car-image{
+}
+.new-car-text, .new-car-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 35px;
+    font-size: 2em;
+}
+.new-car-text{
+    flex:4;
+    background: transparent;
+}
+.new-car-button{
+    flex: 1;
+    background: #00b100;
+    color: white;
+    cursor: pointer;
+}
+
+.car-image{
     display: flex;
     align-items: center;
     justify-content: center;
     flex: 1;
     background: #8d9bff;
-    }
-    .car-image img{
+}
+.car-image img{
     max-width: 100%;
     min-height: 50px;
     cursor: pointer;
-    }
-    .car-col{
+}
+.car-col{
     display: flex;
     flex-direction: column;
     flex: 5;
-    }
-    .car-isAvailable{
+    background: white;
+}
+.car-isAvailable{
     display: flex;
     flex: 4;
     flex-direction: column;
     color: white;
-    }
-    .car-available{
+}
+.car-available{
     background: #00b100;
-    }
-    .car-unavailable{
+}
+.car-unavailable{
     background: #e01d3f;
-    }
-    .car-vin, .car-model{
+}
+.car-vin, .car-model{
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    }
-    .car-vin{
+}
+.car-vin{
     flex: 1;
     background: grey;
     color: white;
-    }
-    .car-edit{
+}
+.car-edit{
     padding-right: 5px;
     text-align: right;
     color: blue;
-    }
-    .car-edit span{
+}
+.car-edit span{
     cursor: pointer;
-    }
-    .car-model {
+}
+.car-model {
     flex: 2;
     font-size: 1.5em;
-    }
-    .car-available, .car-unavailable{
+}
+.car-available, .car-unavailable{
     display: flex;
     flex: 1;
     align-items: center;
     justify-content: center;
-    }
-    .active{
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5)
-    }
-    .inactive{
+}
+.active{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5)
+}
+.inactive{
     cursor: pointer;
     opacity: 0.5;
-    }
-    @media(min-width: 600px){
+}
+@media(min-width: 600px){
     .car-model {
         font-size: 2em;
     }
     .car-isAvailable{
         flex-direction: row;
     }
-    }
-    @media(max-width: 600px){
+}
+@media(max-width: 600px){
     .inactive{
         background: grey;
     }
-    }
+}
     

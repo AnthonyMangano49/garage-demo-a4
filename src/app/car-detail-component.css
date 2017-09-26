@@ -2,9 +2,9 @@
     display: flex;
     flex-direction: column;
     margin: 25px auto;
-    padding: 50px 25px;
+    padding: 40px 20px;
     width: 50%;
-    min-width: 300px;
+    min-width: 320px;
     max-width: 500px;
     background: white;
 }
@@ -46,4 +46,28 @@
 }
 .detail-buttons button:nth-child(2):hover{
     background: #00b100;
+}
+#detail-delete label{
+    background: #ef8e9f;
+    border: 2px solid #ef8e9f; 
+}
+#detail-delete input{
+    border: 2px solid #ef8e9f;
+}
+#detail-delete button{
+    flex: none;
+    display: flex;
+    justify-content: center;
+    color: white;
+    align-items: center;
+    background: #ef8e9f; 
+    border: 2px solid #ef8e9f;
+}
+#detail-delete button:hover{
+    background:  #e01d3f;
+    border: 2px solid #e01d3f;
+}
+#detail-delete button:active{
+    background: #ef8e9f !important; 
+    border: 2px solid #ef8e9f !important;
 }
