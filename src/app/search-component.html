@@ -8,10 +8,11 @@
             <span (click)="sortToggle(currentSort)" [ngClass]="sortIcon()"></span>
         </div>
         <div id="search-input">
-            <input placeholder="Search...">
+            <input #searchInput placeholder="Search..." (keyup)="search(searchInput.value)">
+            <!--todo user selects search criteria-->
         </div>
     </div>
-    <div *ngIf="loading">
+    <div *ngIf="isLoading">
         <span class="fa fa-spinner fa-pulse fa-3x"></span>
     </div>
     <div id="search-content" *ngFor="let car of cars">

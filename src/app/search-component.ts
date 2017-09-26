@@ -9,22 +9,27 @@ import { CarsService } from './cars.service';
 })
 
 export class SearchComponent implements OnInit{
-    constructor(private carsService: CarsService) {}
+    constructor(private carsService: CarsService) { }
     ngOnInit(): void {
         //temporary
-        this.carsService.getAllCars()
-            .then(response => {
-                this.cars = response;        
-                this.currentSort = 'ID'
-                this.sortToggle(true);
-            });
-    }
+        // this.carsService.getAllCars()
+        //     .then(response => {
+        //         this.cars = response;        
+        //         this.currentSort = 'ID'
+        //         this.sortToggle(true);
+        //     });
+               
+        this.currentSort = 'ID'
+        this.currentDirection = 'asc'
+    };
 
+    isLoading: boolean;
     currentSort: string;
     currentDirection: string;
     cars: Car[];
     
     sortOptions: Array<string> = ['Make', 'VIN', 'ID']
+    searchOptions = {make: true, vin: true, id: true};
 
     sortToggle(changeDirection: boolean): void{
         if(changeDirection)
@@ -48,18 +53,32 @@ export class SearchComponent implements OnInit{
     sortIcon(): string{
         let sortType = (this.currentSort === 'ID') ? 'numeric' : 'alpha'
         return `fa fa-sort-${sortType}-${this.currentDirection}`;
-    }
-
+    };
     alphaSort(first: string, second: string): number{
         if(first < second)
             return -1;
         if(first > second)
             return 1;
         return 0;
-    }
+    };
     numericSort(first: number, second: number){
         return first - second
-    }
+    };
+
+    search(input: string){
+        if(input.length > 1){
+            this.isLoading = true;
+            //temp (get from UI) also make a type
+            let ids = ['make', 'model', 'vin', 'id']
+            this.carsService.carsSearch(ids, input).then((cars) => {
+                this.isLoading = false;
+                this.cars = cars;
+                this.sortToggle(false);
+            })
+        } else{
+            this.cars = [];
+        }
+    };
 
 }
 

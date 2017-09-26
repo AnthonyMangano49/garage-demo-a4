@@ -25,11 +25,11 @@ export class CarDetailComponent implements OnInit{
                     return Promise.resolve(new Car);
                 } else {
                     this.editMode = 'edit';
-                    return this.carsService.getCarById(+param)
+                    return this.carsService.getCarsByVar('id', param)[0];
                 }
             })
             .subscribe(response=> {
-                return this.selectedCar = response}
+                return this.selectedCar = response as Car}
             );
     };
 
