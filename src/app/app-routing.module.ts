@@ -3,6 +3,7 @@ import{RouterModule}from '@angular/router';
 import { HomeComponent } from './home.component';
 import { CarDetailComponent } from './car-detail-component';
 import { CarsComponent } from './cars.component';
+import { SearchComponent } from './search-component';
 
 @NgModule({
     imports: [
@@ -16,6 +17,9 @@ import { CarsComponent } from './cars.component';
             }, {
                 path: 'car/:id',
                 component: CarDetailComponent
+            }, {
+                path: 'search',
+                component: SearchComponent
             }, {
                 path: '**',
                 redirectTo: 'home'

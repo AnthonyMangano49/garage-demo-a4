@@ -10,6 +10,7 @@ import { AppComponent }  from './app.component';
 import { HomeComponent }  from './home.component';
 import { CarDetailComponent } from "./car-detail-component";
 import { CarsService } from "./cars.service";
+import { SearchComponent } from './search-component';
 import { CarsComponent } from "./cars.component";
 import { MockDataService } from './mock-data-service';
 
@@ -21,7 +22,7 @@ import { MockDataService } from './mock-data-service';
     InMemoryWebApiModule.forRoot(MockDataService),
     AppRoutingModule
     ],
-  declarations: [ AppComponent, CarsComponent, CarDetailComponent, HomeComponent],
+  declarations: [ AppComponent, CarsComponent, CarDetailComponent, HomeComponent, SearchComponent],
   bootstrap:    [ AppComponent ],
   providers: [CarsService]
 })

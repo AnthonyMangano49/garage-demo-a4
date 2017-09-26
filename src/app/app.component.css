@@ -5,6 +5,10 @@
     padding: 25px;
     background: #8d9bff;
     color: #eff1ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
 }
 #title-container span{
     cursor: pointer;
@@ -17,7 +21,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-grow: 1;
+    flex: 3;
     background: white;
     color: #8d9bff;
     text-transform: uppercase;
@@ -27,6 +31,9 @@
 }
 #router-container a:hover {
     border-bottom: 3px solid #8d9bff;
+}
+#nav-search{
+    flex: 1 !important;
 }
 .active-route{
     background: grey !important;

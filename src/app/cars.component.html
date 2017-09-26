@@ -1,8 +1,8 @@
 <div class="cars-list-item">
     <div class="new-car-text">
     </div>
-    <div class="new-car-button">
-        <span [routerLink]="['/car/'+ 'new']" class="fa fa-plus-square"></span>
+    <div class="new-car-button" [routerLink]="['/car/'+ 'new']">
+        <span class="fa fa-plus-square"></span>
     </div>
 </div>
 <div *ngFor="let car of cars" class="cars-list-item">

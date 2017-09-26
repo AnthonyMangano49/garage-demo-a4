@@ -1,0 +1,39 @@
+<div id="search-container">
+    <div id="search-top-row">
+        <div id="search-sort">
+            <label>Sort By</label>
+            <select [(ngModel)] = "currentSort" (ngModelChange) = "sortToggle(false)">
+                <option *ngFor="let sort of sortOptions" [ngValue]="sort">{{sort}}</option>
+            </select>
+            <span (click)="sortToggle(currentSort)" [ngClass]="sortIcon()"></span>
+        </div>
+        <div id="search-input">
+            <input placeholder="Search...">
+        </div>
+    </div>
+    <div *ngIf="loading">
+        <span class="fa fa-spinner fa-pulse fa-3x"></span>
+    </div>
+    <div id="search-content" *ngFor="let car of cars">
+        <div id="search-id">
+            <span>{{car.id}}</span>
+        </div>
+        <div id="search-vin">
+            {{car.vin}}
+        </div>
+        <div id="search-make-model-container">
+            <div id="search-make">
+                {{car.make}}
+            </div>
+            <div id="search-model">
+                {{car.model}}
+            </div>
+        </div>
+        <div id="search-available">
+            {{car.isAvailable}}
+        </div>
+        <div id="search-more">
+            More
+        </div>
+    </div>
+</div>

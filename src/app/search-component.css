@@ -1,0 +1,89 @@
+#search-container{
+    margin: 25px auto;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 225px);
+    width: 98%;
+    max-width: 920px;
+    background: white;
+}
+#search-top-row{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+#search-top-row div{
+    padding: 5px;    
+}
+#search-sort{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+#search-sort label, #search-sort span{
+    padding: 7px;
+    background: #8d9bff;
+    color: white;
+    border: none;
+}
+#search-sort span{
+    cursor: pointer;
+}
+#search-sort select, #search-input input{
+    flex: 1;
+    border: 2px solid #8d9bff;
+    padding: 7px;
+}
+#search-input{
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+}
+
+#search-content{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    padding: 0 5px;
+}
+#search-content > *{
+    padding: 10px 7px;
+    margin-top: -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#search-id, #search-more{
+    background-color: #8d9bff;
+    color: white;
+    flex: 1;
+}
+#search-id, #search-available, #search-more, #search-vin{
+    border-top: 1px solid grey;
+    border-bottom: 1px solid grey;
+}
+#search-vin{
+    display: none !important;
+}
+#search-make-model-container{
+    flex: 4;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+}
+#search-available{
+    flex: 2;
+}
+#search-more{
+    cursor: pointer;
+}
+
+@media(min-width: 500px){
+    #search-top-row {
+        flex-direction: row;
+    }
+    #search-vin{
+        display: flex !important;
+        flex: 6;
+    }
+}
