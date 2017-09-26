@@ -23,38 +23,39 @@ export class CarsService{
   getAllCars(): Promise<Car[]>{
     return this.http.get(this.url)
       .toPromise()
-      .then(response => response.json().data as Car[])
+      .then(response => {
+        console.log(response.json().data);
+        return response.json().data as Car[]}
+      )
       .catch(this.errorResponse);
   }
 
   getAvailableCars(): Promise<Car[]>{
-    return this.http.get(this.url)
+    return this.http.get(`${this.url}?isAvailable=true`)
     .toPromise()
-    .then(response => {
-      let all = response.json().data as Car[];
-      return all.filter(c => c.isAvailable);
-    })
+    .then(response => response.json().data as Car[])
     .catch(this.errorResponse);
   }
 
   getUnavailableCars(): Promise<Car[]>{
-    return this.http.get(this.url)
+    return this.http.get(`${this.url}?isAvailable=false`)
     .toPromise()
-    .then(response => {
-      let all = response.json().data as Car[];
-      return all.filter(c => !c.isAvailable);
-    })
+    .then(response => response.json().data as Car[])
     .catch(this.errorResponse);
   }
 
   getCarByVin(vin: string): Promise<Car>{
-    return this.http.get(this.url)
+    return this.http.get(`${this.url}?vin=${vin}`)
     .toPromise()
-    .then(response => {
-      let all = response.json().data as Car[];
-      return all.find(c => c.vin === vin);
-    })
+    .then(response => response.json().data[0] as Car)
     .catch(this.errorResponse);
+  }
+
+  updateCar(car:Car): Promise<Car> {
+    return this.http.put(`${this.url}/${car.id}`, JSON.stringify(car))
+      .toPromise()
+      .then(() => car)
+      .catch(this.errorResponse)
   }
 
   errorResponse(error: any): Promise<any>{

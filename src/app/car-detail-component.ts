@@ -24,9 +24,9 @@ export class CarDetailComponent implements OnInit{
     makes(){
         return Object.keys(Makes);
     };
-    submit(){
-        //todo
-        this.return();
+    submit(car:Car){
+        this.carsService.updateCar(car);
+        this.location.back();
     }
     return(){
         this.location.back();

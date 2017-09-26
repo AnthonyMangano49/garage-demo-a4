@@ -20,19 +20,22 @@ export class CarsComponent implements OnInit{
   
   ngOnInit() {
     this.route.paramMap
-      .switchMap((params: ParamMap) => this.carsService.getCars(params.get('status')))
+      .switchMap((params: ParamMap) => {
+        this.status = params.get('status')
+        return this.carsService.getCars(this.status);
+      })
       .subscribe(response => this.cars = response);
   }
   cars: Car[];
-
+  status: string;
   styleCheck(available: boolean, isAvailable: boolean): string{
     return(available === isAvailable ? 'active' : 'inactive');
   }
 
   toggleAvailable(available: boolean, car:Car): void{
-    //todo update in service
-    //if new status doesnt match current status, toggle them
     if(available !== car.isAvailable) car.isAvailable = !car.isAvailable;
+    this.carsService.updateCar(car);
+    this.carsService.getCars(this.status).then(response => this.cars = response);
   }
 }
 
