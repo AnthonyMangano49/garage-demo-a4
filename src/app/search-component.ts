@@ -66,7 +66,7 @@ export class SearchComponent implements OnInit{
     };
 
     search(input: string){
-        if(input.length > 1){
+        if(input.length > 0){
             this.isLoading = true;
             //temp (get from UI) also make a type
             let ids = ['make', 'model', 'vin', 'id']

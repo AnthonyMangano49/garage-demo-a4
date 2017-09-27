@@ -44,6 +44,7 @@
     flex-direction: column;
     flex: 5;
     background: white;
+    overflow: hidden;
 }
 .car-isAvailable{
     display: flex;
@@ -61,7 +62,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
+}
+.car-model{
+    overflow: hidden;
+    white-space: nowrap;
+}
+.car-model::-webkit-scrollbar {
+    height: .1em;
 }
 .car-vin{
     flex: 1;
@@ -77,6 +84,7 @@
     cursor: pointer;
 }
 .car-model {
+    margin: auto;
     flex: 2;
     font-size: 1.5em;
 }

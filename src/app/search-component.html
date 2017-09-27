@@ -12,29 +12,31 @@
             <!--todo user selects search criteria-->
         </div>
     </div>
-    <div *ngIf="isLoading">
-        <span class="fa fa-spinner fa-pulse fa-3x"></span>
+    <div *ngIf="isLoading" id="search-spinner">
+        <span class="fa fa-spinner fa-pulse fa-5x"></span>
     </div>
-    <div id="search-content" *ngFor="let car of cars">
-        <div id="search-id">
-            <span>{{car.id}}</span>
-        </div>
-        <div id="search-vin">
-            {{car.vin}}
-        </div>
-        <div id="search-make-model-container">
-            <div id="search-make">
-                {{car.make}}
+    <div  *ngFor="let car of cars">
+        <span id="search-content" *ngIf="!isLoading">
+            <div id="search-id">
+                <span>{{car.id}}</span>
             </div>
-            <div id="search-model">
-                {{car.model}}
+            <div id="search-vin">
+                {{car.vin}}
             </div>
-        </div>
-        <div id="search-available">
-            {{car.isAvailable}}
-        </div>
-        <div id="search-more">
-            More
-        </div>
+            <div id="search-make-model-container">
+                <div id="search-make">
+                    {{car.make}}
+                </div>
+                <div id="search-model">
+                    {{car.model}}
+                </div>
+            </div>
+            <div id="search-available">
+                {{car.isAvailable ? 'Available':'Unavailable'}}
+            </div>
+            <div id="search-more" [routerLink]="['/car/', car.id]">
+                More
+            </div>
+        </span>
     </div>
 </div>

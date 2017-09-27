@@ -77,12 +77,12 @@ export class CarsService{
   //   .catch(this.errorResponse);
   // }
 
-  // getCarById(id: number): Promise<Car>{
-  //   return this.http.get(`${this.url}?id=${id}`)
-  //   .toPromise()
-  //   .then(response => response.json().data[0] as Car)
-  //   .catch(this.errorResponse);
-  // }
+  getCarById(id: number): Promise<Car>{
+    return this.http.get(`${this.url}?id=${id}`)
+    .toPromise()
+    .then(response => response.json().data[0] as Car)
+    .catch(this.errorResponse);
+  }
 
   updateCar(car:Car): Promise<Car> {
     return this.http.put(`${this.url}/${car.id}`, JSON.stringify(car))

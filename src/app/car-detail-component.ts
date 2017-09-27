@@ -25,43 +25,74 @@ export class CarDetailComponent implements OnInit{
                     return Promise.resolve(new Car);
                 } else {
                     this.editMode = 'edit';
-                    return this.carsService.getCarsByVar('id', param)[0];
+                    return this.carsService.getCarById(+param);
                 }
             })
             .subscribe(response=> {
-                return this.selectedCar = response as Car}
-            );
+                this.originalCar = response as Car;
+                this.selectedCar = Object.assign({}, this.originalCar);
+            });
     };
-
+    errorMessage: string;
+    originalCar: Car;
     selectedCar: Car; 
-    editMode: string = 'create';   
-    vinConfirmation: string;
+    editMode: string = 'create';
 
     makes(): string[]{
         return Object.keys(Makes);
     };
     
     submit(car:Car): void {
-        let promise: Promise<Car>
-        switch(this.editMode){
-            case 'create':  
-                promise = this.carsService.createCar(car);
-                break;
-            case 'edit': 
-                promise = this.carsService.updateCar(car);
-                break;
+        if(this.isValid(car)){
+            let promise: Promise<Car>
+            switch(this.editMode){
+                case 'create':  
+                    promise = this.carsService.createCar(car);
+                    break;
+                case 'edit': 
+                    promise = this.carsService.updateCar(car);
+                    break;
+            }
+            promise.then(() => this.return());
         }
-        promise.then(() => this.return());
     };
-    delete(car: Car): void{
-        if(car.vin === this.vinConfirmation){
+    delete(car: Car, deleteVal: string): void{
+        if(this.originalCar.vin === deleteVal){
             this.carsService.deleteCar(car);
+            this.return();
         } else {
-            alert('todo vin error validation')
+            this.setMessage('Not Deleted: Incorrect Vin')
         }
-        this.return();
     };
 
+    setMessage(message: string):void{
+        if(!this.errorMessage){
+            this.errorMessage = message;
+            setTimeout(() => this.errorMessage = '', 3000);
+        }
+    }
+
+    isValid(car:Car){
+        if(JSON.stringify(this.originalCar) === JSON.stringify(car)){
+            this.setMessage('No Change Detected');
+            return false;
+        }
+        for(let value in car){
+            if(!car[value]){
+                this.setMessage(`${value} required`)
+                return false;
+            }
+        }
+        if(car.vin.length !== 17){
+            this.setMessage('17 digits required in VIN');
+            return false;
+        }
+
+        return true;
+    }
+    reset(): void{
+        this.selectedCar = Object.assign({}, this.originalCar);
+    }
     return(): void{
         this.location.back();
     };
