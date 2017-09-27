@@ -38,7 +38,7 @@ export class MockDataService implements InMemoryDbService {
               id: 6,
               vin: '4T1BE30K05U048753',
               make: Makes.Lincoln,
-              model: 'NewExtremelyLongModel',
+              model: 'MKZ',
               isAvailable: true
             },{
               id: 7,

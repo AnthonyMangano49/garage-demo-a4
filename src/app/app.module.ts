@@ -13,6 +13,7 @@ import { CarsService } from "./cars.service";
 import { SearchComponent } from './search-component';
 import { CarsComponent } from "./cars.component";
 import { MockDataService } from './mock-data-service';
+import { CreationWizardComponent } from './creation-wizard.component';
 
 @NgModule({
   imports:  [ 
@@ -22,7 +23,7 @@ import { MockDataService } from './mock-data-service';
     InMemoryWebApiModule.forRoot(MockDataService),
     AppRoutingModule
     ],
-  declarations: [ AppComponent, CarsComponent, CarDetailComponent, HomeComponent, SearchComponent],
+  declarations: [ AppComponent, CarsComponent, CarDetailComponent, HomeComponent, SearchComponent, CreationWizardComponent],
   bootstrap:    [ AppComponent ],
   providers: [CarsService]
 })

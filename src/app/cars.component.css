@@ -1,4 +1,6 @@
-
+h1{
+    text-align: center
+}
 .cars-list-item{
     display: flex;
     flex-direction: row;

@@ -1,12 +1,3 @@
-#search-container{
-    margin: 25px auto;
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - 225px);
-    width: 98%;
-    max-width: 920px;
-    background: white;
-}
 #search-top-row{
     display: flex;
     flex-direction: column;
@@ -62,8 +53,8 @@
     flex: 1;
 }
 #search-id, #search-available, #search-more, #search-vin{
-    border-top: 1px solid grey;
-    border-bottom: 1px solid grey;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
 }
 #search-vin{
     display: none !important;
@@ -72,7 +63,7 @@
     flex: 4;
     display: flex;
     flex-direction: column;
-    border: 1px solid grey;
+    border: 1px solid #e3e3e3;
 }
 #search-model{
     margin : auto;

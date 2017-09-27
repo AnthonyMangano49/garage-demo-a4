@@ -44,6 +44,7 @@ export class CarDetailComponent implements OnInit{
     
     submit(car:Car): void {
         if(this.isValid(car)){
+            car.vin = car.vin.toUpperCase();
             let promise: Promise<Car>
             switch(this.editMode){
                 case 'create':  
@@ -74,17 +75,22 @@ export class CarDetailComponent implements OnInit{
 
     isValid(car:Car){
         if(JSON.stringify(this.originalCar) === JSON.stringify(car)){
-            this.setMessage('No Change Detected');
+            let message = this.editMode === 'edit' ? 'No Change Detected' : 'Fill Fields To Add Car';
+            this.setMessage(message);
             return false;
         }
+        if(Object.keys(car).length < 4){
+            this.setMessage('All Fields Required');
+            return false;           
+        }
         for(let value in car){
-            if(!car[value]){
+            if(car[value] === ""){
                 this.setMessage(`${value} required`)
                 return false;
             }
         }
         if(car.vin.length !== 17){
-            this.setMessage('17 digits required in VIN');
+            this.setMessage('17 digit VIN required');
             return false;
         }
 

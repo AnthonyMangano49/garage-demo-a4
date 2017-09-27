@@ -20,3 +20,13 @@ outline: 1px solid white;
 button:focus, span:focus, input:focus, select:focus, img:focus{
   outline: 0;
 }
+
+.main-container{
+  margin: 25px auto;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 225px);
+  width: 98%;
+  max-width: 920px;
+  background: white;
+}

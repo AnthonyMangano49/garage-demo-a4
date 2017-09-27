@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { CarDetailComponent } from './car-detail-component';
 import { CarsComponent } from './cars.component';
 import { SearchComponent } from './search-component';
+import { CreationWizardComponent } from './creation-wizard.component';
 
 @NgModule({
     imports: [
@@ -20,6 +21,9 @@ import { SearchComponent } from './search-component';
             }, {
                 path: 'search',
                 component: SearchComponent
+            },{
+                path: 'new',
+                component: CreationWizardComponent
             }, {
                 path: '**',
                 redirectTo: 'home'

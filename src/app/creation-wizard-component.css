@@ -1,0 +1,45 @@
+#wizard-progress {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #e3e3e3;
+}
+#wizard-progress div{
+    display: flex;
+    flex: 1;
+    padding: 7px;
+    justify-content: center;
+    text-transform: uppercase;
+    border: 1px solid #e3e3e3;
+    cursor: not-allowed;
+}
+.wizard-complete{
+    cursor: pointer !important;
+    background: #00b100;
+    color: white;
+}
+.wizard-current{
+    cursor: pointer !important;
+    background: #77d17f;
+    color: white;
+}
+
+#wizard-content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+.wizard-content {
+    flex: 1;
+}
+
+#wizard-nav{
+    display: flex;
+    padding: 15px;
+}
+#wizard-nav .fa{
+    color: #8d9bff;
+    cursor: pointer;
+}
+#wizard-arrow-spacer{
+    flex: 1;
+}
