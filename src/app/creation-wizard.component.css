@@ -1,0 +1,125 @@
+#wizard-progress {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #e3e3e3;
+}
+#wizard-progress div {
+    display: flex;
+    flex: 1;
+    padding: 7px;
+    justify-content: center;
+    text-transform: uppercase;
+    border: 1px solid #e3e3e3;
+}
+.wizard-complete-nav {
+    color: white;
+    background: #00b100
+}
+.wizard-active-nav {
+    color: white;
+    background: #77d17f;
+}
+
+
+#wizard-content-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-bottom: 20px;
+}
+#wizard-arrow-nav {
+    display: flex;
+    padding: 15px;
+    align-items: center;
+}
+#wizard-arrow-nav .fa {
+    color: #8d9bff;
+    cursor: pointer;
+}
+#wizard-arrow-spacer {
+    flex: 1;
+    text-align: center;
+}
+
+.error-container{
+    text-align: center;
+    padding: 10px;
+    text-transform: uppercase;
+    color: red;
+}
+
+.wizard-content {
+    flex: 1;
+}
+.wizard-content input, .wizard-content select {
+    display: flex;
+    margin: auto;
+    font-size: 2em;
+    width: 90%;
+    padding: 10px;
+    max-width: 450px;
+    border: 2px solid #8d9bff;
+    color: grey;
+    text-align: center;
+}
+
+.makes-container {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.makes-container div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 150px;
+    cursor: pointer;
+    border-top: 5px solid white;
+    border-bottom: 5px solid white;
+}
+.makes-container div:hover {
+    border-color: #8d9bff;
+}
+.makes-container div.selected {
+    background: #8d9bff;
+    color: white;
+    border-color: #8d9bff;
+}
+.makes-container img {
+    max-width: 75%;
+}
+
+#review-container {
+    display: flex;
+    flex: 1;
+}
+.review-spacer {
+    flex: 1;
+}
+.review-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #00b100;;
+}
+.review-content div, .review-content button {
+    font-size: 2em;
+    padding: 10px;
+}
+.review-content button {
+    border: none;
+    background: #00b100;
+    color: white;
+    width: 100%;
+    cursor: pointer;
+}
+.review-content button:active {
+    background: #77d17f;
+}
+
+

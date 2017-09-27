@@ -2,7 +2,6 @@
     font-size: 1.5em;
     text-align: center;
     text-transform: uppercase;
-    padding: 25px;
     background: #8d9bff;
     color: #eff1ff;
     display: flex;
@@ -32,7 +31,7 @@
 #router-container a:hover {
     border-bottom: 3px solid #8d9bff;
 }
-#nav-search{
+#router-container a:first-child, #router-container a:last-child{
     flex: 1 !important;
 }
 .active-route{

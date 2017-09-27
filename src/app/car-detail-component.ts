@@ -12,7 +12,7 @@ import 'rxjs/add/operator/switchMap';
     templateUrl: './car-detail-component.html',
 })
 
-export class CarDetailComponent implements OnInit{
+export class CarDetailComponent implements OnInit {
     constructor(private carsService: CarsService, private route: ActivatedRoute, private location: Location) { };
 
     ngOnInit(): void {
@@ -32,21 +32,24 @@ export class CarDetailComponent implements OnInit{
                 this.originalCar = response as Car;
                 this.selectedCar = Object.assign({}, this.originalCar);
             });
-    };
+    }
+
     errorMessage: string;
     originalCar: Car;
     selectedCar: Car; 
     editMode: string = 'create';
 
-    makes(): string[]{
+    makes(): string[] {
         return Object.keys(Makes);
-    };
+    }
     
     submit(car:Car): void {
-        if(this.isValid(car)){
+        if(this.isValid(car)) {
             car.vin = car.vin.toUpperCase();
+            
             let promise: Promise<Car>
-            switch(this.editMode){
+            
+            switch(this.editMode) {
                 case 'create':  
                     promise = this.carsService.createCar(car);
                     break;
@@ -54,52 +57,59 @@ export class CarDetailComponent implements OnInit{
                     promise = this.carsService.updateCar(car);
                     break;
             }
+            
             promise.then(() => this.return());
         }
-    };
-    delete(car: Car, deleteVal: string): void{
-        if(this.originalCar.vin === deleteVal){
+    }
+
+    delete(car: Car, deleteVal: string): void {
+        if(this.originalCar.vin === deleteVal) {
             this.carsService.deleteCar(car);
             this.return();
         } else {
-            this.setMessage('Not Deleted: Incorrect Vin')
+            this.setMessage('Not Deleted: Incorrect Vin');
         }
-    };
+    }
 
-    setMessage(message: string):void{
-        if(!this.errorMessage){
+    setMessage(message: string):void {
+        if(!this.errorMessage) {
             this.errorMessage = message;
             setTimeout(() => this.errorMessage = '', 3000);
         }
     }
 
-    isValid(car:Car){
-        if(JSON.stringify(this.originalCar) === JSON.stringify(car)){
+    isValid(car:Car) {
+        if(JSON.stringify(this.originalCar) === JSON.stringify(car)) {
             let message = this.editMode === 'edit' ? 'No Change Detected' : 'Fill Fields To Add Car';
             this.setMessage(message);
             return false;
         }
-        if(Object.keys(car).length < 4){
+
+        if(Object.keys(car).length < 4) {
             this.setMessage('All Fields Required');
             return false;           
         }
-        for(let value in car){
-            if(car[value] === ""){
-                this.setMessage(`${value} required`)
+
+        for(let value in car) {
+            if(car[value] === "") {
+                this.setMessage(`${value} required`);
                 return false;
             }
         }
-        if(car.vin.length !== 17){
+        
+        if(car.vin.length !== 17) {
             this.setMessage('17 digit VIN required');
             return false;
         }
 
         return true;
     }
-    reset(): void{
+
+    reset(): void {
         this.selectedCar = Object.assign({}, this.originalCar);
     }
-    return(): void{
+
+    return(): void {
         this.location.back();
-    };
+    }
 }

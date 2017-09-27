@@ -11,7 +11,8 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./cars.component.css'],
   templateUrl: './cars.component.html'
 })
-export class CarsComponent implements OnInit{
+
+export class CarsComponent implements OnInit {
   constructor(
     private carsService: CarsService,
     private route: ActivatedRoute,
@@ -21,18 +22,21 @@ export class CarsComponent implements OnInit{
   ngOnInit() {
     this.route.paramMap
       .switchMap((params: ParamMap) => {
-        this.status = params.get('status')
+        this.status = params.get('status');
+        //todo
         return this.carsService.getCars(this.status);
       })
       .subscribe(response => this.cars = response);
   }
+
   cars: Car[];
   status: string;
-  styleCheck(available: boolean, isAvailable: boolean): string{
+
+  styleCheck(available: boolean, isAvailable: boolean): string {
     return(available === isAvailable ? 'active' : 'inactive');
   }
 
-  toggleAvailable(available: boolean, car:Car): void{
+  toggleAvailable(available: boolean, car:Car): void {
     if(available !== car.isAvailable) car.isAvailable = !car.isAvailable;
     this.carsService.updateCar(car);
     this.carsService.getCars(this.status).then(response => this.cars = response);

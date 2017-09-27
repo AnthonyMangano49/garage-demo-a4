@@ -22,7 +22,7 @@ import { CreationWizardComponent } from './creation-wizard.component';
     HttpModule,
     InMemoryWebApiModule.forRoot(MockDataService),
     AppRoutingModule
-    ],
+  ],
   declarations: [ AppComponent, CarsComponent, CarDetailComponent, HomeComponent, SearchComponent, CreationWizardComponent],
   bootstrap:    [ AppComponent ],
   providers: [CarsService]

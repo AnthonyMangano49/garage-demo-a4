@@ -1,0 +1,53 @@
+<div class="main-container">
+    <div id="wizard-progress">
+        <div *ngFor="let step of steps" [ngClass]="setStepClass(step.id)">
+            <span>{{step.nav}}</span>
+        </div>
+    </div>
+    <div id="wizard-content-container">
+        <div id="wizard-arrow-nav">
+            <!-- clean these styles -->
+            <span class="fa fa-arrow-left fa-2x" (click)="navigate(-1)" [ngStyle]="currentStep == 0 ? {visibility: 'hidden'} : ''"></span>
+            <span id="wizard-arrow-spacer">{{steps[currentStep].prompt}}</span>
+            <span  class="fa fa-arrow-right fa-2x" (click)="navigate(1)" [ngStyle]="currentStep == steps.length - 1 ? {visibility: 'hidden'}: ''"></span>
+        </div>
+        <!-- use ngswitch instead (cant remember syntax) -->
+        <div class="wizard-content">
+            <div class="error-container">
+                {{errorMessage}}
+            </div>
+            <div *ngIf="steps[currentStep].name === 'make'" class="makes-container">
+                <!-- fix -->
+                <div *ngFor="let make of makes" (click)="setValue('make', make)" [ngClass]="setMakeClass(make)">
+                    <img [src]="'../images/' + make + '.png'">
+                    <span>{{make}}</span>
+                </div>
+            </div>
+            
+            <div *ngIf="steps[currentStep].name === 'model'">
+                    <input [(ngModel)]="newCar.model" maxlength="30">
+            </div>
+                
+            <div *ngIf="steps[currentStep].name === 'vin'">
+                    <input [(ngModel)]="newCar.vin" maxlength="17">
+            </div>
+                
+            <div *ngIf="steps[currentStep].name === 'isAvailable'">
+                    <select [(ngModel)]="newCar.isAvailable">
+                        <option [ngValue]="true">Vehicle Available</option>
+                        <option [ngValue]="false">Vehicle Not Available</option>
+                    </select>
+            </div>
+            <div *ngIf="steps[currentStep].name === 'review'" id="review-container">
+                <div class="review-spacer"></div>
+                <div class="review-content">                 
+                    <div>{{newCar.make}} {{newCar.model}}</div>
+                    <div>{{newCar.vin}}</div>
+                    <div>{{newCar.isAvailable ? 'Available' : 'Unavailable'}}</div>
+                    <button (click) = "createCar()">Create</button>
+                </div>
+                <div class="review-spacer"></div>
+            </div>
+        </div>
+    </div>
+</div>
