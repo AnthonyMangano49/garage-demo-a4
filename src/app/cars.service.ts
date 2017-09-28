@@ -3,12 +3,17 @@ import {Headers,Http} from '@angular/http';
 import { Car } from "./car";
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/forkJoin';
+
+import { Observable } from 'rxjs/Observable';
 
 //injectable because other services may be injected in the future (not reqd now)
 @Injectable()
 export class CarsService {
   constructor(private http: Http){}
   private url = 'api/cars';
+
   //look into overloading this properly to get type support
   getCars(status: string): Promise<Car[]> {
     switch(status) {
@@ -28,32 +33,61 @@ export class CarsService {
       .catch(this.errorResponse);
   }
 
-  carsSearch(ids: Array<string>, value: string): Promise<Car[]> {
-    let results: Array<Car> = [];
-    let promises: Array<Promise<Car[]>> = [];
-    //ids should be a type
-    //Get cars for each search option (vin, id, make, model)
-    for(let id in ids) {
-      let promise = this.getCarsByVar(ids[id], value);
-      //add promises to an array so we can wait for all to resolve at once
-      promises.push(promise);
-  }
+  // carsSearch(ids: Array<string>, value: string): Promise<Car[]> {
+  //   let results: Array<Car> = [];
+  //   let promises: Array<Promise<Car[]>> = [];
+  //   //ids should be a type
+  //   //Get cars for each search option (vin, id, make, model)
+  //   for(let id in ids) {
+  //     let promise = this.getCarsByVar(ids[id], value);
+  //     //add promises to an array so we can wait for all to resolve at once
+  //     promises.push(promise);
+  // }
     
-    //excecute each promise
-    return Promise.all(promises).then(allResponses => {
-      //each response in responses is a car array
-      allResponses.forEach(carArray => {
-        //for each car in the current car array
-        carArray.forEach(newCar => {
-          //only add if unique id
-          let doesExist = results.findIndex(existingCar => existingCar.id === newCar.id);
-          if(doesExist === -1)
-            results.push(newCar);
-        });
+  //   //excecute each promise
+  //   return Promise.all(promises).then(allResponses => {
+  //     //each response in responses is a car array
+  //     allResponses.forEach(carArray => {
+  //       //for each car in the current car array
+  //       carArray.forEach(newCar => {
+  //         //only add if unique id
+  //         let doesExist = results.findIndex(existingCar => existingCar.id === newCar.id);
+  //         if(doesExist === -1)
+  //           results.push(newCar);
+  //       });
+  //     });
+  //     return results;
+  //   });
+  // }
+
+  carsSearch(ids: Array<string>, value: string): Observable<Car[]> {
+    //this will hold all get requests
+    let requests: Array<any> = [];
+    //this will hold all (filtered) successful search results
+    let cars: Array<Car> = [];
+    
+    //id is the param to be queried (make, model, etc. )
+    ids.forEach(id=> {
+      requests.push(this.http.get(`${this.url}?${id}=${value}`).map(response => response.json().data as Car[]));
+    });
+
+    //join and wait for all requests before returning
+    return Observable.forkJoin(requests).map(responses => {
+      responses.forEach((response: Car[]) => {
+        if(response.length) {
+          //these cars match one or more search queries
+          //check to see if car has already been added to cars array to prevent duplicates
+          response.forEach((car: Car) => {
+            let doesExist = cars.findIndex(existingCar => existingCar.id === car.id);
+            if(doesExist === -1)
+              cars.push(car);
+          });
+        }
       });
-      return results;
+      return cars;
     });
   }
+
 
   getCarsByVar(id:string, value: string): Promise<Car[]> {
     let url = `${this.url}?${id}=${value}`;
