@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { Car, Makes} from "./car";
@@ -43,12 +43,17 @@ export class CarDetailComponent implements OnInit {
         return Object.keys(Makes);
     }
     
-    submit(car:Car): void {
-        if(this.isValid(car)) {
-            car.vin = car.vin.toUpperCase();
-            
+    submit(): void {
+        let car = this.selectedCar;
+        
+        for(let prop in car){
+            if (typeof(car[prop]) === 'string')
+                car[prop] = car[prop].trim();
+        }
+
+        if(this.isValid(car)) {     
+            car.vin = car.vin.toUpperCase();       
             let promise: Promise<Car>
-            
             switch(this.editMode) {
                 case 'create':  
                     promise = this.carsService.createCar(car);

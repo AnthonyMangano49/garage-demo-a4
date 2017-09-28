@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit{
     };
 
     isLoading: boolean;
+    noResults: boolean;
     currentSort: string;
     currentDirection: string;
     cars: Car[];
@@ -74,6 +75,7 @@ export class SearchComponent implements OnInit{
             //temp (get from UI) also make a type
             let ids = ['make', 'model', 'vin', 'id'];
             this.carsService.carsSearch(ids, input).then((cars) => {
+                this.noResults = !cars.length ? true : false;
                 this.isLoading = false;
                 this.cars = cars;
                 this.sortToggle(false);

@@ -39,6 +39,9 @@
     </div>
     <div class="detail-buttons">
         <button id="Reset" (click)="reset()">Reset</button>
-        <button id="Submit" (click)="submit(selectedCar)">Submit</button>
+        <button id="Submit" (click)="submit()">Submit</button>
+    </div>
+    <div id='wizard-link' *ngIf="editMode === 'create'">
+        <span [routerLink]="['/new']">Try Creation Wizard</span>
     </div>
 </div>

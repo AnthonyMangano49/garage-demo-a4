@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, HostListener} from '@angular/core';
 import { Car, Makes } from './car';
 import { CarsService } from './cars.service';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './creation-wizard.component.html',
@@ -10,8 +10,27 @@ import { CarsService } from './cars.service';
 })
 
 export class CreationWizardComponent {
-    constructor(private carsService: CarsService, private location: Location){};
-    //add arrow and enter key events
+    constructor(private carsService: CarsService, private router: Router){};
+
+    @HostListener('document:keydown', ['$event'])
+    keyEvent(event: KeyboardEvent) {
+        switch(event.key){
+            case 'Enter':
+                if(this.steps[this.currentStep].name === 'review') {
+                    this.createCar();
+                } else {
+                    this.navigate(1)
+                }
+                break;
+            case 'ArrowRight':
+                this.navigate(1)
+                break;
+            case 'ArrowLeft':
+                this.navigate(-1)
+                break;
+        }
+    }
+
     steps = [
         //this should be a type
         {id: 0, name: 'make', nav: 'Make', prompt: 'Select Vehicle Make', inputType: 'string'}, 
@@ -23,10 +42,13 @@ export class CreationWizardComponent {
 
     errorMessage: string;
     currentStep = 0;
+    isComplete: boolean;
     makes = Object.keys(Makes);
     newCar: Car = new Car;
 
     setStepClass(input: number): string {
+        if(this.isComplete)
+            return 'wizard-complete-nav';
         if(input < this.currentStep)
             return 'wizard-complete-nav';
         if(input === this.currentStep)  
@@ -48,7 +70,8 @@ export class CreationWizardComponent {
     }
 
     createCar(): void {
-        this.carsService.createCar(this.newCar).then(() => this.location.back());
+        this.isComplete = true;
+        this.carsService.createCar(this.newCar).then(() => this.router.navigate([`/cars/${this.newCar.isAvailable ? 'available' : 'unavailable'}`]));
     }
 
     setValue(name: string, value: any ): void {
@@ -62,24 +85,25 @@ export class CreationWizardComponent {
 
     //move error into utility
     isValid() {
-        let current = this.steps[this.currentStep];
-        let value = this.newCar[current.name];
+        let property = this.steps[this.currentStep].name;
+        let nav = this.steps[this.currentStep].nav;
 
-        if(typeof(value) === 'string')
-            value = value.trim();
+        if(typeof(this.newCar[property]) === 'string')
+            this.newCar[property] =  this.newCar[property].trim();
         
-        if(!value && value !== false) {
-            this.setMessage(current.nav+' Required');
+        if(this.newCar[property] !== false && !this.newCar[property]) {
+            this.setMessage(nav + ' Required');
             return false;
         }
 
-        switch(current.name) {
+        switch(property) {
             // case 'make':
             //     break;
             // case 'model':
             //     break;
             case 'vin':
-                if(value.length !== 17) {                  
+                this.newCar[property] = this.newCar[property].toUpperCase();
+                if(this.newCar[property].length !== 17) {                  
                     this.setMessage('17 Digits required');
                     return false;
                 }

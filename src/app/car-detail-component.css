@@ -94,3 +94,11 @@
     background: #ef8e9f !important; 
     border: 2px solid #ef8e9f !important;
 }
+
+#wizard-link {
+    display: block;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+
+}

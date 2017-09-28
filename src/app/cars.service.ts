@@ -95,7 +95,7 @@ export class CarsService {
     //angular in mem web api is requiring id???
     return this.fetchLastId().then(
       id => {
-        car.id = id;
+        car.id = id + 1;
         return this.http.post(this.url, JSON.stringify(car))
           .toPromise()
           .then(() => car)
