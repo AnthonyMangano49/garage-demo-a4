@@ -1,6 +1,6 @@
 import { Component, OnInit} from '@angular/core'
-import { Car } from './car';
-import { CarsService } from './cars.service';
+import { CarsService } from '../shared/cars.service';
+import { Car } from '../shared/car';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
@@ -14,12 +14,12 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
-    selector: 'search',
-    templateUrl: './search-component.html',
-    styleUrls: ['./search-component.css']
+    selector: 'car-search',
+    templateUrl: './car-search.component.html',
+    styleUrls: ['./car-search.component.css']
 })
 
-export class SearchComponent implements OnInit{
+export class CarSearchComponent implements OnInit{
     constructor(private carsService: CarsService) { }
 
     isLoading: boolean;
@@ -72,20 +72,20 @@ export class SearchComponent implements OnInit{
         if(changeDirection)
             this.currentDirection = (this.currentDirection === 'asc') ? 'desc' : 'asc';
         
-        // switch(this.currentSort){
-        //     case 'Make': 
-        //         this.cars.sort((a,b)=> this.alphaSort(a.make, b.make));
-        //         break;
-        //     case 'VIN': 
-        //         this.cars.sort((a,b) => this.alphaSort(a.vin, b.vin));
-        //         break;
-        //     case 'ID': 
-        //         this.cars.sort((a,b) => this.numericSort(a.id, b.id));
-        //         break;
-        // }
+        switch(this.currentSort){
+            case 'Make': 
+                this.cars.sort((a,b)=> this.alphaSort(a.make, b.make));
+                break;
+            case 'VIN': 
+                this.cars.sort((a,b) => this.alphaSort(a.vin, b.vin));
+                break;
+            case 'ID': 
+                this.cars.sort((a,b) => this.numericSort(a.id, b.id));
+                break;
+        }
         
-        // if(this.currentDirection === 'desc')
-        //     this.cars.reverse();
+        if(this.currentDirection === 'desc')
+            this.cars.reverse();
     }
 
     sortIcon(): string {

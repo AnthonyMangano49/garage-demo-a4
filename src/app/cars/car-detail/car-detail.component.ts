@@ -1,25 +1,25 @@
 import { Component, Input, OnInit, HostListener} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { Car, Makes} from "./car";
-import { CarsService } from "./cars.service";
+import { CarsService } from '../shared/cars.service';
+import { Car } from '../shared/car';
+import { Makes } from '../shared/makes';
 
 import 'rxjs/add/operator/switchMap';
 
 @Component({
     selector: 'car-detail',
-    styleUrls: ['./car-detail-component.css'],
-    templateUrl: './car-detail-component.html',
+    styleUrls: ['./car-detail.component.css'],
+    templateUrl: './car-detail.component.html',
 })
 
 export class CarDetailComponent implements OnInit {
     constructor(private carsService: CarsService, private route: ActivatedRoute, private location: Location) { };
 
     ngOnInit(): void {
-        //clean this up
         this.route.paramMap
-            .switchMap((p: ParamMap) => {
-                let param = p.get('id');
+            .switchMap((params: ParamMap) => {
+                let param = params.get('id');
                 if(param === 'new') {
                     this.editMode = 'create';
                     return Promise.resolve(new Car);

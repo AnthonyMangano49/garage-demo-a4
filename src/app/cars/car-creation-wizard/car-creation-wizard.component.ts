@@ -1,15 +1,17 @@
 import { Component, HostListener} from '@angular/core';
-import { Car, Makes } from './car';
-import { CarsService } from './cars.service';
 import { Router } from '@angular/router';
+import { CarsService } from '../shared/cars.service';
+import { Makes } from '../shared/makes';
+import { Car } from '../shared/car';
+import { Step, AvailableNames, AvailableInputs } from './step';
 
 @Component({
-    templateUrl: './creation-wizard.component.html',
-    styleUrls: ['./creation-wizard.component.css'],
-    selector: 'creation-wizard'
+    templateUrl: './car-creation-wizard.component.html',
+    styleUrls: ['./car-creation-wizard.component.css'],
+    selector: 'car-creation-wizard'
 })
 
-export class CreationWizardComponent {
+export class CarCreationWizardComponent {
     constructor(private carsService: CarsService, private router: Router){};
 
     @HostListener('document:keydown', ['$event'])
@@ -31,13 +33,13 @@ export class CreationWizardComponent {
         }
     }
 
-    steps = [
+    steps: Array<Step>= [
         //this should be a type
-        {id: 0, name: 'make', nav: 'Make', prompt: 'Select Vehicle Make', inputType: 'string'}, 
-        {id: 1, name: 'model', nav: 'Model', prompt: 'Enter Vehicle Model', inputType: 'string'}, 
-        {id: 2, name: 'vin', nav: 'VIN', prompt: 'Enter 17 Digit VIN', inputType: 'string'}, 
-        {id: 3, name: 'isAvailable', nav: 'Availability', prompt: 'Select Vehicle Availability', inputType: 'boolean'}, 
-        {id: 4, name: 'review', nav: 'Confirm', prompt: '', inputType: ''}, 
+        {id: 0, name: AvailableNames.make, nav: 'Make', prompt: 'Select Vehicle Make', inputType: AvailableInputs.string}, 
+        {id: 1, name: AvailableNames.model, nav: 'Model', prompt: 'Enter Vehicle Model', inputType: AvailableInputs.string}, 
+        {id: 2, name: AvailableNames.vin, nav: 'VIN', prompt: 'Enter 17 Digit VIN', inputType: AvailableInputs.string}, 
+        {id: 3, name: AvailableNames.isAvailable, nav: 'Availability', prompt: 'Select Vehicle Availability', inputType: AvailableInputs.boolean}, 
+        {id: 4, name: AvailableNames.review, nav: 'Confirm', prompt: ''}, 
     ];
 
     errorMessage: string;
@@ -83,7 +85,7 @@ export class CreationWizardComponent {
             return 'selected';
     }
 
-    //move error into utility
+    //move error into utility?
     isValid() {
         let property = this.steps[this.currentStep].name;
         let nav = this.steps[this.currentStep].nav;

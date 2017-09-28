@@ -1,18 +1,18 @@
 import { Component, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { Car } from "./car";
-import { CarsService } from "./cars.service";
+import { CarsService } from '../shared/cars.service';
+import { Car } from '../shared/car';
 
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-  selector: 'cars',
-  styleUrls: ['./cars.component.css'],
-  templateUrl: './cars.component.html'
+  selector: 'car-list',
+  styleUrls: ['./car-list.component.css'],
+  templateUrl: './car-list.component.html'
 })
 
-export class CarsComponent implements OnInit {
+export class CarListComponent implements OnInit {
   constructor(
     private carsService: CarsService,
     private route: ActivatedRoute,

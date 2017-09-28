@@ -19,7 +19,7 @@
             <div *ngIf="steps[currentStep].name === 'make'" class="makes-container">
                 <!-- fix -->
                 <div *ngFor="let make of makes" (click)="setValue('make', make)" [ngClass]="setMakeClass(make)">
-                    <img [src]="'../images/' + make + '.png'">
+                    <img [src]="'app/cars/images/' + make + '.png'">
                     <span>{{make}}</span>
                 </div>
             </div>

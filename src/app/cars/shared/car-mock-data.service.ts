@@ -1,7 +1,8 @@
 import { InMemoryDbService } from "angular-in-memory-web-api";
-import { Car, Makes } from "./car";
+import { Car} from "./car";
+import { Makes } from "./makes";
 
-export class MockDataService implements InMemoryDbService {
+export class CarMockDataService implements InMemoryDbService {
     createDb(){
         const cars: Array<Car> = [
             {
